@@ -10,11 +10,11 @@
         <version>3.2.0</version>
     </parent>
 
-    <groupId>com.agenda</groupId>
-    <artifactId>agenda-web</artifactId>
+    <groupId>com.atendimento</groupId>
+    <artifactId>atendimento-web</artifactId>
     <version>1.0.0</version>
-    <name>Agenda Web API</name>
-    <description>Sistema de Agenda Web - Backend Spring Boot</description>
+    <name>Atendimento Web API</name>
+    <description>Sistema de Atendimento Web - Backend Spring Boot</description>
 
     <properties>
         <java.version>17</java.version>

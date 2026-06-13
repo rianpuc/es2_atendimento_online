@@ -1,4 +1,4 @@
-package com.agenda.model;
+package com.atendimento.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

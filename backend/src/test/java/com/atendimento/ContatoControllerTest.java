@@ -1,8 +1,8 @@
-package com.agenda;
+package com.atendimento;
 
-import com.agenda.controller.ContatoController;
-import com.agenda.model.Contato;
-import com.agenda.repository.ContatoRepository;
+import com.atendimento.controller.ContatoController;
+import com.atendimento.model.Contato;
+import com.atendimento.repository.ContatoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

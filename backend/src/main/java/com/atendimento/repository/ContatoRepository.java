@@ -1,6 +1,6 @@
-package com.agenda.repository;
+package com.atendimento.repository;
 
-import com.agenda.model.Contato;
+import com.atendimento.model.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

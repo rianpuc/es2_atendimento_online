@@ -1,6 +1,6 @@
-package com.agenda.repository;
+package com.atendimento.repository;
 
-import com.agenda.model.Compromisso;
+import com.atendimento.model.Compromisso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;

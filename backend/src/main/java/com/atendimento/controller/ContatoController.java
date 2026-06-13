@@ -1,7 +1,7 @@
-package com.agenda.controller;
+package com.atendimento.controller;
 
-import com.agenda.model.Contato;
-import com.agenda.repository.ContatoRepository;
+import com.atendimento.model.Contato;
+import com.atendimento.repository.ContatoRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
