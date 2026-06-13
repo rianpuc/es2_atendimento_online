@@ -20,21 +20,21 @@ public class AtendimentoController {
         this.repository = repository;
     }
 
-    // CREATE - Criar novo compromisso
+    // CREATE - Criar novo atendimento
     @PostMapping
     public ResponseEntity<Atendimento> criar(@Valid @RequestBody Atendimento atendimento) {
         Atendimento salvo = repository.save(atendimento);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
-    // READ - Listar todos os compromissos
+    // READ - Listar todos os atendimentos
     @GetMapping
     public ResponseEntity<List<Atendimento>> listar() {
         List<Atendimento> atendimentos = repository.findAllByOrderByDataAscHorarioAsc();
         return ResponseEntity.ok(atendimentos);
     }
 
-    // READ - Buscar compromisso por ID
+    // READ - Buscar atendimento por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> buscar(@PathVariable Long id) {
         return repository.findById(id)
@@ -43,8 +43,8 @@ public class AtendimentoController {
                         .body(null));
     }
 
-    // UPDATE - Atualizar compromisso
-    @PutMapping("/{id}")
+    // UPDATE - Atualizar atendimento
+    @PutMapping("/editar/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id,
                                        @Valid @RequestBody Atendimento dados) {
         return repository.findById(id)
@@ -60,7 +60,7 @@ public class AtendimentoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE - Remover compromisso
+    // DELETE - Remover atendimento
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         return repository.findById(id)
