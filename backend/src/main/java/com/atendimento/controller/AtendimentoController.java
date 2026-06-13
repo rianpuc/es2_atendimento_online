@@ -1,7 +1,7 @@
 package com.atendimento.controller;
 
-import com.atendimento.model.Compromisso;
-import com.atendimento.repository.CompromissoRepository;
+import com.atendimento.model.Atendimento;
+import com.atendimento.repository.AtendimentoRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,28 +10,28 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/compromissos")
+@RequestMapping("/api/atendimento")
 @CrossOrigin(origins = "*")
-public class CompromissoController {
+public class AtendimentoController {
 
-    private final CompromissoRepository repository;
+    private final AtendimentoRepository repository;
 
-    public CompromissoController(CompromissoRepository repository) {
+    public AtendimentoController(AtendimentoRepository repository) {
         this.repository = repository;
     }
 
     // CREATE - Criar novo compromisso
     @PostMapping
-    public ResponseEntity<Compromisso> criar(@Valid @RequestBody Compromisso compromisso) {
-        Compromisso salvo = repository.save(compromisso);
+    public ResponseEntity<Atendimento> criar(@Valid @RequestBody Atendimento atendimento) {
+        Atendimento salvo = repository.save(atendimento);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
     // READ - Listar todos os compromissos
     @GetMapping
-    public ResponseEntity<List<Compromisso>> listar() {
-        List<Compromisso> compromissos = repository.findAllByOrderByDataAscHoraAsc();
-        return ResponseEntity.ok(compromissos);
+    public ResponseEntity<List<Atendimento>> listar() {
+        List<Atendimento> atendimentos = repository.findAllByOrderByDataAscHorarioAsc();
+        return ResponseEntity.ok(atendimentos);
     }
 
     // READ - Buscar compromisso por ID
@@ -46,14 +46,15 @@ public class CompromissoController {
     // UPDATE - Atualizar compromisso
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id,
-                                       @Valid @RequestBody Compromisso dados) {
+                                       @Valid @RequestBody Atendimento dados) {
         return repository.findById(id)
                 .map(comp -> {
                     comp.setTitulo(dados.getTitulo());
                     comp.setData(dados.getData());
-                    comp.setHora(dados.getHora());
-                    comp.setDescricao(dados.getDescricao());
-                    comp.setContato(dados.getContato());
+                    comp.setHorario(dados.getHorario());
+                    comp.setTitulo(dados.getTitulo());
+                    comp.setLink_call(dados.getLink_call());
+                    comp.setReceitas(dados.getReceitas());
                     return ResponseEntity.ok(repository.save(comp));
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -65,7 +66,7 @@ public class CompromissoController {
         return repository.findById(id)
                 .map(comp -> {
                     repository.delete(comp);
-                    return ResponseEntity.ok(Map.of("mensagem", "Compromisso removido com sucesso"));
+                    return ResponseEntity.ok(Map.of("mensagem", "Atendimento removido com sucesso"));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
