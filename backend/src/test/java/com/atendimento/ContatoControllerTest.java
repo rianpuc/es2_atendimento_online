@@ -47,8 +47,8 @@ class ContatoControllerTest {
         when(repository.save(any(Contato.class))).thenReturn(contato);
 
         mockMvc.perform(post("/api/contatos")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(contato)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(contato)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("João Silva"))
                 .andExpect(jsonPath("$.email").value("joao@email.com"));

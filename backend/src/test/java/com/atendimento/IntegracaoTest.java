@@ -47,8 +47,8 @@ class IntegracaoTest {
         contato.setEmail("maria@email.com");
 
         MvcResult result = mockMvc.perform(post("/api/contatos")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(contato)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(contato)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nome").value("Maria Santos"))
                 .andReturn();
@@ -66,8 +66,8 @@ class IntegracaoTest {
         contato.setEmail("maria.silva@email.com");
 
         mockMvc.perform(put("/api/contatos/" + id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(contato)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(contato)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nome").value("Maria Santos Silva"));
 
@@ -84,8 +84,8 @@ class IntegracaoTest {
         contato.setTelefone("31977776666");
 
         MvcResult contatoResult = mockMvc.perform(post("/api/contatos")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(contato)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(contato)))
                 .andExpect(status().isCreated())
                 .andReturn();
 
@@ -103,8 +103,8 @@ class IntegracaoTest {
             """, contatoId);
 
         mockMvc.perform(post("/api/compromissos")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(compJson))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(compJson))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.titulo").value("Almoço de negócios"));
     }
