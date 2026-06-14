@@ -19,6 +19,6 @@ public class ExameLaboratorio {
     @Column(nullable = false)
     private String descricao;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String posologia;
 }

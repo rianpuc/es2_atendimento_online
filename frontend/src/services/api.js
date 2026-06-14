@@ -43,4 +43,13 @@ export const compromissoService = {
   deletar: (id) => api.delete(`/compromissos/${id}`)
 };
 
+// ========== EXAMES (DEV 3 - Rafael) ==========
+export const examesService = {
+  listar: () => api.get('/exames'),
+  buscar: (id) => api.get(`/exames/${id}`),
+  criar: (exame) => api.post('/exames', exame),
+  atualizar: (id, exame) => api.put(`/exames/${id}`, exame),
+  deletar: (id) => api.delete(`/exames/${id}`)
+};
+
 export default api;

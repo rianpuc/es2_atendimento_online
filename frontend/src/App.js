@@ -4,6 +4,8 @@ import ContatoList from './components/ContatoList';
 import ContatoForm from './components/ContatoForm';
 import CompromissoList from './components/CompromissoList';
 import CompromissoForm from './components/CompromissoForm';
+import ExameList from './components/ExameList';
+import ExameForm from './components/ExameForm';
 import './App.css';
 
 function App() {
@@ -11,10 +13,11 @@ function App() {
     <Router>
       <div className="App">
         <nav className="navbar">
-          <h1>📅 Agenda Web</h1>
+          <h1>📅 Atendimentos Web</h1>
           <div className="nav-links">
             <Link to="/contatos">Contatos</Link>
             <Link to="/compromissos">Compromissos</Link>
+            <Link to="/exames">Exames</Link>
           </div>
         </nav>
 
@@ -27,6 +30,9 @@ function App() {
             <Route path="/compromissos" element={<CompromissoList />} />
             <Route path="/compromissos/novo" element={<CompromissoForm />} />
             <Route path="/compromissos/editar/:id" element={<CompromissoForm />} />
+            <Route path="/exames" element={<ExameList />} />
+            <Route path="/exames/novo" element={<ExameForm />} />
+            <Route path="/exames/editar/:id" element={<ExameForm />} />
           </Routes>
         </main>
       </div>
