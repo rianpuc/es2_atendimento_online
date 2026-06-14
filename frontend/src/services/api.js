@@ -43,4 +43,13 @@ export const compromissoService = {
   deletar: (id) => api.delete(`/compromissos/${id}`)
 };
 
+// ========== PROFISSIONAIS DE SAÚDE (DEV 1 - Gustavo) ==========
+export const profissionalSaudeService = {
+  listar: () => api.get('/profissional'),
+  buscar: (id) => api.get(`/profissional/${id}`),
+  criar: (profissional) => api.post('/profissional', profissional),
+  atualizar: (id, profissional) => api.put(`/profissional/${id}`, profissional),
+  deletar: (id) => api.delete(`/profissional/${id}`)
+}
+
 export default api;
