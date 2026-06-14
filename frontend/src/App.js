@@ -4,6 +4,8 @@ import ContatoList from './components/ContatoList';
 import ContatoForm from './components/ContatoForm';
 import CompromissoList from './components/CompromissoList';
 import CompromissoForm from './components/CompromissoForm';
+import ExameList from './components/ExameList';
+import ExameForm from './components/ExameForm';
 import AtendimentoList from './components/AtendimentoList';
 import AtendimentoForm from './components/AtendimentoForm';
 import './App.css';
@@ -17,6 +19,7 @@ function App() {
           <div className="nav-links">
             <Link to="/contatos">Contatos</Link>
             <Link to="/compromissos">Compromissos</Link>
+            <Link to="/exames">Exames</Link>
             <Link to="/atendimentos">Atendimentos</Link>
           </div>
         </nav>
@@ -29,6 +32,9 @@ function App() {
             <Route path="/compromissos" element={<CompromissoList />} />
             <Route path="/compromissos/novo" element={<CompromissoForm />} />
             <Route path="/compromissos/editar/:id" element={<CompromissoForm />} />
+            <Route path="/exames" element={<ExameList />} />
+            <Route path="/exames/novo" element={<ExameForm />} />
+            <Route path="/exames/editar/:id" element={<ExameForm />} />
             <Route path="/atendimentos" element={<AtendimentoList />} />
             <Route path="/atendimentos/novo" element={<AtendimentoForm />} />
             <Route path="/atendimentos/editar/:id" element={<AtendimentoForm />} />
