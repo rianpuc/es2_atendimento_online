@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/profissional")
-class ProfissionalSaudeController {
+public class ProfissionalSaudeController {
     private final ProfissionalSaudeRepository repository;
 
     public ProfissionalSaudeController(ProfissionalSaudeRepository repository) { this.repository = repository; }
