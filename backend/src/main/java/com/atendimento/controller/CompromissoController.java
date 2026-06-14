@@ -1,7 +1,7 @@
 package com.atendimento.controller;
 
-import com.atendimento.model.Atendimento;
-import com.atendimento.repository.AtendimentoRepository;
+import com.atendimento.model.Compromisso;
+import com.atendimento.repository.CompromissoRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,31 +10,31 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/atendimento")
+@RequestMapping("/api/compromissos")
 @CrossOrigin(origins = "*")
-public class AtendimentoController {
+public class CompromissoController {
 
-    private final AtendimentoRepository repository;
+    private final CompromissoRepository repository;
 
-    public AtendimentoController(AtendimentoRepository repository) {
+    public CompromissoController(CompromissoRepository repository) {
         this.repository = repository;
     }
 
-    // CREATE - Criar novo atendimento
+    // CREATE - Criar novo compromisso
     @PostMapping
-    public ResponseEntity<Atendimento> criar(@Valid @RequestBody Atendimento atendimento) {
-        Atendimento salvo = repository.save(atendimento);
+    public ResponseEntity<Compromisso> criar(@Valid @RequestBody Compromisso compromisso) {
+        Compromisso salvo = repository.save(compromisso);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
-    // READ - Listar todos os atendimentos
+    // READ - Listar todos os compromissos
     @GetMapping
-    public ResponseEntity<List<Atendimento>> listar() {
-        List<Atendimento> atendimentos = repository.findAllByOrderByDataAscHorarioAsc();
-        return ResponseEntity.ok(atendimentos);
+    public ResponseEntity<List<Compromisso>> listar() {
+        List<Compromisso> compromissos = repository.findAllByOrderByDataAscHoraAsc();
+        return ResponseEntity.ok(compromissos);
     }
 
-    // READ - Buscar atendimento por ID
+    // READ - Buscar compromisso por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> buscar(@PathVariable Long id) {
         return repository.findById(id)
@@ -43,30 +43,29 @@ public class AtendimentoController {
                         .body(null));
     }
 
-    // UPDATE - Atualizar atendimento
-    @PutMapping("/editar/{id}")
+    // UPDATE - Atualizar compromisso
+    @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id,
-                                       @Valid @RequestBody Atendimento dados) {
+                                       @Valid @RequestBody Compromisso dados) {
         return repository.findById(id)
                 .map(comp -> {
                     comp.setTitulo(dados.getTitulo());
                     comp.setData(dados.getData());
-                    comp.setHorario(dados.getHorario());
-                    comp.setTitulo(dados.getTitulo());
-                    comp.setLink_call(dados.getLink_call());
-                    comp.setReceitas(dados.getReceitas());
+                    comp.setHora(dados.getHora());
+                    comp.setDescricao(dados.getDescricao());
+                    comp.setContato(dados.getContato());
                     return ResponseEntity.ok(repository.save(comp));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE - Remover atendimento
+    // DELETE - Remover compromisso
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         return repository.findById(id)
                 .map(comp -> {
                     repository.delete(comp);
-                    return ResponseEntity.ok(Map.of("mensagem", "Atendimento removido com sucesso"));
+                    return ResponseEntity.ok(Map.of("mensagem", "Compromisso removido com sucesso"));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

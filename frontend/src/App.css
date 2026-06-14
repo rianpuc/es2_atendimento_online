@@ -166,20 +166,3 @@
   border-radius: 14px;
   border: 1px dashed #d6d9e6;
 }
-
-.receitas-lista {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
-}
-
-.receita-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: #f8f9fa;
-}
