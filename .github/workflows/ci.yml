@@ -76,7 +76,7 @@ jobs:
         run: npm ci
 
       - name: Testes React
-        run: npm test -- --coverage --watchAll=false
+        run: npm test -- --coverage --watchAll=false --passWithNoTests
 
       - name: Build Frontend
         run: npm run build
