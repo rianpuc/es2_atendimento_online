@@ -19,6 +19,7 @@ function resolveApiUrl() {
 }
 
 const API_URL = resolveApiUrl();
+console.log("API_URL =", API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
@@ -57,7 +58,8 @@ export const atendimentoService = {
   buscar: (id) => api.get(`/atendimento/${id}`),
   criar: (compromisso) => api.post('/atendimento', compromisso),
   atualizar: (id, compromisso) => api.put(`/atendimento/editar/${id}`, compromisso),
-  deletar: (id) => api.delete(`/atendimento/${id}`)
+  deletar: (id) => api.delete(`/atendimento/${id}`),
+  gerarLink: () => api.get('/atendimento/gerar-link')
 };
 
 // ========== EXAMES (DEV 3 - Rafael) ==========

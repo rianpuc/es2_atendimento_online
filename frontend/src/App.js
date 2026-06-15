@@ -9,6 +9,8 @@ import ExameForm from './components/ExameForm';
 import AtendimentoList from './components/AtendimentoList';
 import AtendimentoForm from './components/AtendimentoForm';
 import './App.css';
+import ProfissionalSaudeList from './components/ProfissionalSaudeList';
+import ProfissionalSaudeForm from './components/ProfissionalSaudeForm';
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
           <div className="nav-links">
             <Link to="/contatos">Contatos</Link>
             <Link to="/compromissos">Compromissos</Link>
-            <Link to="/exames">Exames</Link>
             <Link to="/atendimentos">Atendimentos</Link>
+            <Link to="/profissionais">Profissionais</Link>
           </div>
         </nav>
         <main className="container">
@@ -38,6 +40,9 @@ function App() {
             <Route path="/atendimentos" element={<AtendimentoList />} />
             <Route path="/atendimentos/novo" element={<AtendimentoForm />} />
             <Route path="/atendimentos/editar/:id" element={<AtendimentoForm />} />
+            <Route path="/profissionais" element={<ProfissionalSaudeList />} />
+            <Route path="/profissionais/novo" element={<ProfissionalSaudeForm />} />
+            <Route path="/profissionais/editar/:id" element={<ProfissionalSaudeForm />} />
           </Routes>
         </main>
       </div>

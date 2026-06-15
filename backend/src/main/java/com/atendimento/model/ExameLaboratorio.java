@@ -1,5 +1,6 @@
 package com.atendimento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class ExameLaboratorio {
 
     @ManyToOne
     @JoinColumn(name = "atendimento_id")
+    @JsonIgnore
     private Atendimento atendimento;
 }

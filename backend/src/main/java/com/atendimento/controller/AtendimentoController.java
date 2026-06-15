@@ -1,6 +1,7 @@
 package com.atendimento.controller;
 
 import com.atendimento.model.Atendimento;
+import com.atendimento.model.ExameLaboratorio;
 import com.atendimento.repository.AtendimentoRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/atendimento")
@@ -22,9 +24,15 @@ public class AtendimentoController {
 
     // CREATE - Criar novo atendimento
     @PostMapping
-    public ResponseEntity<Atendimento> criar(@Valid @RequestBody Atendimento atendimento) {
+    public ResponseEntity<Atendimento> criar(
+            @Valid @RequestBody Atendimento atendimento) {
+        for (ExameLaboratorio exame : atendimento.getExames()) {
+            exame.setAtendimento(atendimento);
+        }
         Atendimento salvo = repository.save(atendimento);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(salvo);
     }
 
     // READ - Listar todos os atendimentos
@@ -43,19 +51,37 @@ public class AtendimentoController {
                         .body(null));
     }
 
+    // READ - Gerar Link
+    @GetMapping("/gerar-link")
+    public ResponseEntity<?> gerarLink() {
+        String sala = UUID.randomUUID().toString();
+        String link = "https://meet.jit.si/" + sala;
+        return ResponseEntity.ok(
+                Map.of("link", link)
+        );
+    }
+
     // UPDATE - Atualizar atendimento
     @PutMapping("/editar/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable Long id,
-                                       @Valid @RequestBody Atendimento dados) {
+    public ResponseEntity<?> atualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody Atendimento dados) {
+
         return repository.findById(id)
-                .map(comp -> {
-                    comp.setTitulo(dados.getTitulo());
-                    comp.setData(dados.getData());
-                    comp.setHorario(dados.getHorario());
-                    comp.setTitulo(dados.getTitulo());
-                    comp.setLink_call(dados.getLink_call());
-                    comp.setReceitas(dados.getReceitas());
-                    return ResponseEntity.ok(repository.save(comp));
+                .map(atend -> {
+
+                    atend.setTitulo(dados.getTitulo());
+                    atend.setData(dados.getData());
+                    atend.setHorario(dados.getHorario());
+                    atend.setLink_call(dados.getLink_call());
+                    atend.setReceitas(dados.getReceitas());
+                    atend.setProfissionalSaude(dados.getProfissionalSaude());
+                    atend.getExames().clear();
+                    for (ExameLaboratorio exame : dados.getExames()) {
+                        exame.setAtendimento(atend);
+                        atend.getExames().add(exame);
+                    }
+                    return ResponseEntity.ok(repository.save(atend));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

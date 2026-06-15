@@ -58,7 +58,16 @@ function AtendimentoList() {
               <td>{atend.titulo}</td>
               <td>{atend.data}</td>
               <td>{atend.horario}</td>
-              <td>{atend.link_call}</td>
+              <td>
+                <a
+                  href={atend.link_call}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={atend.link_call}
+                >
+                  Entrar na reunião
+                </a>
+              </td>
               <td>{(atend.receitas || []).join(', ')}</td>
               <td>
                 <Link to={`/atendimentos/editar/${atend.id}`} className="btn btn-sm">Editar</Link>
