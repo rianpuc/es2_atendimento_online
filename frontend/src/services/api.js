@@ -25,22 +25,31 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-// ========== CONTATOS (DEV 1 - Ana) ==========
-export const contatoService = {
-  listar: () => api.get('/contatos'),
-  buscar: (id) => api.get(`/contatos/${id}`),
-  criar: (contato) => api.post('/contatos', contato),
-  atualizar: (id, contato) => api.put(`/contatos/${id}`, contato),
-  deletar: (id) => api.delete(`/contatos/${id}`)
+// ========== PROFISSIONAIS DE SAÚDE (DEV 1 - Gustavo) ==========
+export const profissionalSaudeService = {
+  listar: () => api.get('/profissional'),
+  buscar: (id) => api.get(`/profissional/${id}`),
+  criar: (profissional) => api.post('/profissional', profissional),
+  atualizar: (id, profissional) => api.put(`/profissional/${id}`, profissional),
+  deletar: (id) => api.delete(`/profissional/${id}`)
+}
+// ========== ATENDIMENTOS (DEV 2 - Rian) ==========
+export const atendimentoService = {
+  listar: () => api.get('/atendimento'),
+  buscar: (id) => api.get(`/atendimento/${id}`),
+  criar: (compromisso) => api.post('/atendimento', compromisso),
+  atualizar: (id, compromisso) => api.put(`/atendimento/editar/${id}`, compromisso),
+  deletar: (id) => api.delete(`/atendimento/${id}`),
+  gerarLink: () => api.get('/atendimento/gerar-link')
 };
 
-// ========== COMPROMISSOS (DEV 2 - Bruno) ==========
-export const compromissoService = {
-  listar: () => api.get('/compromissos'),
-  buscar: (id) => api.get(`/compromissos/${id}`),
-  criar: (compromisso) => api.post('/compromissos', compromisso),
-  atualizar: (id, compromisso) => api.put(`/compromissos/${id}`, compromisso),
-  deletar: (id) => api.delete(`/compromissos/${id}`)
+// ========== EXAMES (DEV 3 - Rafael) ==========
+export const examesService = {
+  listar: () => api.get('/exames'),
+  buscar: (id) => api.get(`/exames/${id}`),
+  criar: (exame) => api.post('/exames', exame),
+  atualizar: (id, exame) => api.put(`/exames/${id}`, exame),
+  deletar: (id) => api.delete(`/exames/${id}`)
 };
 
 export default api;
