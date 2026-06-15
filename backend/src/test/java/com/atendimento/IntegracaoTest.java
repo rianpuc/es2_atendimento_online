@@ -39,73 +39,149 @@ class IntegracaoTest {
     }
 
     @Test
-    void deveExecutarFluxoCompletoContato() throws Exception {
-        // 1. CRIAR contato
-        Contato contato = new Contato();
-        contato.setNome("Maria Santos");
-        contato.setTelefone("31988887777");
-        contato.setEmail("maria@email.com");
+    void deveExecutarFluxoCompletoProfissionalSaude() throws Exception {
 
-        MvcResult result = mockMvc.perform(post("/api/contatos")
+        String json = """
+        {
+            "nome": "Dr. João",
+            "telefone": "31999999999",
+            "endereco": "Rua A",
+            "categoria": "MEDICO"
+        }
+        """;
+
+        MvcResult result = mockMvc.perform(post("/api/profissional")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(contato)))
+                        .content(json))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.nome").value("Maria Santos"))
+                .andExpect(jsonPath("$.nome").value("Dr. João"))
                 .andReturn();
 
-        Long id = objectMapper.readTree(result.getResponse().getContentAsString())
-                .get("id").asLong();
+        Long id = objectMapper.readTree(
+                        result.getResponse().getContentAsString())
+                .get("id")
+                .asLong();
 
-        // 2. BUSCAR contato criado
-        mockMvc.perform(get("/api/contatos/" + id))
+        mockMvc.perform(get("/api/profissional/" + id))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value("maria@email.com"));
+                .andExpect(jsonPath("$.nome").value("Dr. João"));
 
-        // 3. ATUALIZAR contato
-        contato.setNome("Maria Santos Silva");
-        contato.setEmail("maria.silva@email.com");
+        String updateJson = """
+        {
+            "nome": "Dr. João Silva",
+            "telefone": "31999999999",
+            "endereco": "Rua B",
+            "categoria": "MEDICO"
+        }
+        """;
 
-        mockMvc.perform(put("/api/contatos/" + id)
+        mockMvc.perform(put("/api/profissional/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(contato)))
+                        .content(updateJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome").value("Maria Santos Silva"));
+                .andExpect(jsonPath("$.nome").value("Dr. João Silva"));
 
-        // 4. DELETAR contato
-        mockMvc.perform(delete("/api/contatos/" + id))
+        mockMvc.perform(delete("/api/profissional/" + id))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void deveVincularCompromissoAContato() throws Exception {
-        // Criar contato
-        Contato contato = new Contato();
-        contato.setNome("Pedro Lima");
-        contato.setTelefone("31977776666");
+    void deveCriarAtendimentoComProfissional() throws Exception {
 
-        MvcResult contatoResult = mockMvc.perform(post("/api/contatos")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(contato)))
-                .andExpect(status().isCreated())
-                .andReturn();
+        String profissionalJson = """
+        {
+            "nome": "Dr. Carlos",
+            "telefone": "31988888888",
+            "endereco": "Rua Central",
+            "categoria": "MEDICO"
+        }
+        """;
 
-        Long contatoId = objectMapper.readTree(
-                contatoResult.getResponse().getContentAsString()).get("id").asLong();
+        MvcResult profissionalResult =
+                mockMvc.perform(post("/api/profissional")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(profissionalJson))
+                        .andExpect(status().isCreated())
+                        .andReturn();
 
-        // Criar compromisso vinculado
-        String compJson = String.format("""
-            {
-                "titulo": "Almoço de negócios",
-                "data": "2024-12-20",
-                "hora": "12:00",
-                "contato": {"id": %d}
+        Long profissionalId = objectMapper.readTree(
+                        profissionalResult.getResponse().getContentAsString())
+                .get("id")
+                .asLong();
+
+        String atendimentoJson = String.format("""
+        {
+            "titulo": "Consulta",
+            "data": "2026-06-15",
+            "horario": "14:00:00",
+            "link_call": "https://meet.test",
+            "receitas": ["Dipirona"],
+            "profissionalSaude": {
+                "id": %d
             }
-            """, contatoId);
+        }
+        """, profissionalId);
 
-        mockMvc.perform(post("/api/compromissos")
+        mockMvc.perform(post("/api/atendimento")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(compJson))
+                        .content(atendimentoJson))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.titulo").value("Almoço de negócios"));
+                .andExpect(jsonPath("$.titulo").value("Consulta"))
+                .andExpect(jsonPath("$.profissionalSaude.id").value(profissionalId));
+    }
+
+    @Test
+    void deveCriarAtendimentoComExames() throws Exception {
+
+        String profissionalJson = """
+        {
+            "nome": "Dra. Ana",
+            "telefone": "31977777777",
+            "endereco": "Rua Teste",
+            "categoria": "MEDICO"
+        }
+        """;
+
+        MvcResult profissionalResult =
+                mockMvc.perform(post("/api/profissional")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(profissionalJson))
+                        .andExpect(status().isCreated())
+                        .andReturn();
+
+        Long profissionalId = objectMapper.readTree(
+                        profissionalResult.getResponse().getContentAsString())
+                .get("id")
+                .asLong();
+
+        String atendimentoJson = String.format("""
+        {
+            "titulo": "Consulta Exames",
+            "data": "2026-06-15",
+            "horario": "10:00:00",
+            "link_call": "https://meet.test",
+            "receitas": ["Paracetamol"],
+            "profissionalSaude": {
+                "id": %d
+            },
+            "exames": [
+                {
+                    "descricao": "Hemograma",
+                    "posologia": "Realizar em jejum"
+                },
+                {
+                    "descricao": "Glicemia",
+                    "posologia": "8 horas de jejum"
+                }
+            ]
+        }
+        """, profissionalId);
+
+        mockMvc.perform(post("/api/atendimento")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(atendimentoJson))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.exames.length()").value(2))
+                .andExpect(jsonPath("$.exames[0].descricao").value("Hemograma"));
     }
 }
