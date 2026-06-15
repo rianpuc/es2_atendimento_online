@@ -5,16 +5,22 @@ on:
     workflows: ["CI"]
     types:
       - completed
+    branches:
+      - deploy
 
 jobs:
   deploy:
-    if: |
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'deploy'
-
+    name: Trigger Render Deploy
     runs-on: ubuntu-latest
-
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Trigger Render Deploy
+        env:
+          deploy_back: ${{ secrets.RENDER_DEPLOY_HOOK_BACK }}
+          deploy_front: ${{ secrets.RENDER_DEPLOY_HOOK_FRONT }}
         run: |
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+          echo "Triggering Render Backend"
+          curl -X POST "$deploy_back"
+          
+          echo "Triggering Render Frontend"
+          curl -X POST "$deploy_front"
