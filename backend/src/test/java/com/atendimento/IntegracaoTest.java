@@ -1,6 +1,5 @@
 package com.atendimento;
 
-import com.atendimento.model.Contato;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
