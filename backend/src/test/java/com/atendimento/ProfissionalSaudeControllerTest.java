@@ -3,6 +3,7 @@ package com.atendimento;
 import com.atendimento.controller.ProfissionalSaudeController;
 import com.atendimento.model.Categoria;
 import com.atendimento.model.ProfissionalSaude;
+import com.atendimento.repository.AtendimentoRepository;
 import com.atendimento.repository.ProfissionalSaudeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,9 @@ class ProfissionalSaudeControllerTest {
 
     @MockBean
     private ProfissionalSaudeRepository repository;
+
+    @MockBean
+    private AtendimentoRepository atendimentoRepository;
 
     private ObjectMapper objectMapper;
 
