@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -33,4 +36,7 @@ public class ProfissionalSaude {
     @Enumerated(EnumType.STRING)
     @Column(length = 30, nullable = false)
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "profissionalSaude")
+    private List<Atendimento> atendimentos = new ArrayList<>();
 }

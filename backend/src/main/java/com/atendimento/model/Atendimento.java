@@ -34,6 +34,17 @@ public class Atendimento {
     @Column(name = "link_call", nullable = false)
     private String link_call;
 
+    @ManyToOne
+    @JoinColumn(name = "profissional_id")
+    private ProfissionalSaude profissionalSaude;
+
     @ElementCollection
     private List<String> receitas = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "atendimento",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ExameLaboratorio> exames = new ArrayList<>();
 }

@@ -21,4 +21,8 @@ public class ExameLaboratorio {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String posologia;
+
+    @ManyToOne
+    @JoinColumn(name = "atendimento_id")
+    private Atendimento atendimento;
 }
