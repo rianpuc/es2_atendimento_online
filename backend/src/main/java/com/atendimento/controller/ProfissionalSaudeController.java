@@ -1,8 +1,11 @@
 package com.atendimento.controller;
 
+import com.atendimento.model.Atendimento;
 import com.atendimento.model.ProfissionalSaude;
+import com.atendimento.repository.AtendimentoRepository;
 import com.atendimento.repository.ProfissionalSaudeRepository;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +19,12 @@ import java.util.Map;
 public class ProfissionalSaudeController {
     private final ProfissionalSaudeRepository repository;
 
-    public ProfissionalSaudeController(ProfissionalSaudeRepository repository) { this.repository = repository; }
+    @Autowired
+    private AtendimentoRepository atendimentoRepository;
+
+    public ProfissionalSaudeController(ProfissionalSaudeRepository repository) {
+        this.repository = repository;
+    }
 
     // CREATE - Criar novo profissional
     @PostMapping
@@ -58,10 +66,30 @@ public class ProfissionalSaudeController {
     // DELETE - Remover profissional
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
+
         return repository.findById(id)
                 .map(profissional -> {
+
+                    List<Atendimento> atendimentos =
+                            atendimentoRepository.findByProfissionalSaudeId(id);
+
+                    if (!atendimentos.isEmpty()) {
+                        return ResponseEntity.badRequest().body(
+                                Map.of(
+                                        "erro",
+                                        "Não é possível excluir um profissional com atendimentos vinculados"
+                                )
+                        );
+                    }
+
                     repository.delete(profissional);
-                    return ResponseEntity.ok(Map.of("mensagem", "Profissional removido com sucesso"));
+
+                    return ResponseEntity.ok(
+                            Map.of(
+                                    "mensagem",
+                                    "Profissional removido com sucesso"
+                            )
+                    );
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

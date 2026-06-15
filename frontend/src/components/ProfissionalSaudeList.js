@@ -27,7 +27,10 @@ function ProfissionalSaudeList() {
                 await profissionalSaudeService.deletar(id);
                 carregarProfissionais();
             } catch (error) {
-                console.error('Erro ao deletar profissional:', error);
+                alert(
+                    error.response?.data?.erro ||
+                    "Erro ao excluir profissional"
+                );
             }
         }
     };

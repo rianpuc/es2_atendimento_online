@@ -10,5 +10,6 @@ import java.util.List;
 public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> {
 
     List<Atendimento> findAllByOrderByDataAscHorarioAsc();
+    List<Atendimento> findByProfissionalSaudeId(Long id);
 
 }
