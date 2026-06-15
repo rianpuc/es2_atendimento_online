@@ -25,6 +25,8 @@
         .dev2 { border-left: 5px solid #4CAF50; padding-left: 15px; margin: 10px 0; }
         .dev1-tag { background: #2196F3; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
         .dev2-tag { background: #4CAF50; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+        .dev3 { border-left: 5px solid #ee950f; padding-left: 15px; margin: 10px 0; }
+        .dev3-tag { background: #ee950f; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
         .step-number { display: inline-block; width: 36px; height: 36px; background: #1a73e8; color: white; border-radius: 50%; text-align: center; line-height: 36px; font-weight: bold; margin-right: 10px; }
         .highlight-box { background: #e8f5e9; border: 1px solid #4CAF50; border-radius: 8px; padding: 15px; margin: 15px 0; }
         .warning-box { background: #fff3e0; border: 1px solid #ff9800; border-radius: 8px; padding: 15px; margin: 15px 0; }
@@ -51,28 +53,7 @@
 <body>
 <div class="container">
 
-<h1>&#9749; Desenvolvimento de Software: Agenda Web<small>Java (Spring Boot) + React | Git &rarr; GitHub &rarr; CI/CD &rarr; AWS | 2 Desenvolvedores | PostgreSQL</small></h1>
-
-<div class="section">
-<div class="toc">
-<h3>&#128203; Sum&aacute;rio da Aula</h3>
-<ul>
-<li><a href="#visao-geral">1. Vis&atilde;o Geral do Projeto e Arquitetura</a></li>
-<li><a href="#ferramentas">2. Ferramentas Utilizadas</a></li>
-<li><a href="#diagrama-fluxo">3. Diagrama do Fluxo Completo (C&oacute;digo &rarr; Produ&ccedil;&atilde;o)</a></li>
-<li><a href="#git-local">4. Git em Ambiente Local</a></li>
-<li><a href="#github-remoto">5. GitHub Remoto (Push, Pull Request, Merge)</a></li>
-<li><a href="#codigo-backend">6. C&oacute;digo do Backend (Java/Spring Boot)</a></li>
-<li><a href="#codigo-frontend">7. C&oacute;digo do Frontend (React)</a></li>
-<li><a href="#testes-unitarios">8. Testes Unit&aacute;rios (JUnit + Jest)</a></li>
-<li><a href="#testes-integracao">9. Testes de Integra&ccedil;&atilde;o (GitHub Actions)</a></li>
-<li><a href="#cicd-pipeline">10. CI/CD Pipeline (GitHub Actions)</a></li>
-<li><a href="#testes-aceitacao">11. Testes de Aceita&ccedil;&atilde;o (Entrega Final)</a></li>
-<li><a href="#deploy-aws">12. Deploy na AWS (Produ&ccedil;&atilde;o)</a></li>
-<li><a href="#resumo-final">13. Resumo e Diagrama Final Consolidado</a></li>
-</ul>
-</div>
-</div>
+<h1>&#9749; Desenvolvimento de Software: ES2 Atendimento Online <small>Java (Spring Boot) + React | Git &rarr; GitHub &rarr; CI/CD &rarr; AWS | 2 Desenvolvedores | PostgreSQL</small></h1>
 
 <!-- ============================================================ -->
 <div class="section" id="visao-geral">
@@ -94,12 +75,16 @@
 
 <h3>Divis&atilde;o de Trabalho</h3>
 <div class="dev1">
-    <span class="dev1-tag">DEV 1 - Ana</span>
-    <p><strong>Responsabilidade:</strong> CRUD de Contatos (nome, telefone, email, endere&ccedil;o) &mdash; Backend: ContatoController.java | Frontend: ContatoList.js, ContatoForm.js</p>
+  <span class="dev1-tag">DEV 1 - Rian</span>
+  <p><strong>Responsabilidade:</strong> CRUD de Atendimentos (data, paciente, profissional, detalhes) &mdash; Backend: AtendimentoController.java | Frontend: AtendimentoList.js, AtendimentoForm.js</p>
 </div>
 <div class="dev2">
-    <span class="dev2-tag">DEV 2 - Bruno</span>
-    <p><strong>Responsabilidade:</strong> CRUD de Compromissos (t&iacute;tulo, data, hora, contato vinculado) &mdash; Backend: CompromissoController.java | Frontend: CompromissoList.js, CompromissoForm.js</p>
+  <span class="dev2-tag">DEV 2 - Gustavo</span>
+  <p><strong>Responsabilidade:</strong> CRUD de Exames (tipo, resultados, data) &mdash; Backend: ExameLaboratorioController.java | Frontend: ExameList.js, ExameForm.js</p>
+</div>
+<div class="dev3">
+  <span class="dev3-tag">DEV 3 - Rafael</span>
+  <p><strong>Responsabilidade:</strong> CRUD de Profissionais (nome, especialidade, contato) &mdash; Backend: ProfissionalSaudeController.java | Frontend: ProfissionalSaudeList.js, ProfissionalSaudeForm.js</p>
 </div>
 
 <h3>Diagrama de Arquitetura do Sistema</h3>
@@ -112,8 +97,8 @@ graph TB
     
     subgraph "Backend - Java 17 / Spring Boot 3.2"
         API["&#9749; Spring Boot App"]
-        RC["ContatoController<br>DEV 1 - Ana"]
-        RA["CompromissoController<br>DEV 2 - Bruno"]
+        RC["AtendimentoController<br>DEV 1 - Rian"]
+        RA["ExameLaboratorioController<br>DEV 2 - Gustavo"]
         JPA["Spring Data JPA<br>Repositories"]
     end
     
@@ -307,20 +292,22 @@ sequenceDiagram
     participant Docker as &#128051; Docker<br>(Container)
     participant AWS as &#9729;&#65039; AWS<br>(EC2 + RDS + ECR)
 
-    Note over VS,AWS: FASE 1 - Desenvolvimento Local (Ana e Bruno)
-    VS->>VS: Ana: cria ContatoController.java
-    VS->>VS: Bruno: cria CompromissoController.java
+    Note over VS,AWS: FASE 1 - Desenvolvimento Local (Rian, Gustavo e Rafael)
+    VS->>VS: Rian: cria AtendimentoController.java
+    VS->>VS: Gustavo: cria ExameLaboratorioController.java
+    VS->>VS: Rafael: cria ProfissionalSaudeController.java
     VS->>PG: Spring Boot conecta ao PostgreSQL local
-    VS->>VS: Ana: cria ContatoList.js (React)
-    VS->>VS: Bruno: cria CompromissoList.js (React)
+    VS->>VS: Rian: cria AtendimentoList.js (React)
+    VS->>VS: Gustavo: cria ExameList.js (React)
+    VS->>VS: Rafael: cria ProfissionalSaudeList.js (React)
     VS->>Git: git add + git commit
     VS->>VS: Executa testes: mvn test + npm test
     
     Note over Git,GH: FASE 2 - Reposit&oacute;rio Remoto (GitHub)
     Git->>GH: git push origin feature/contatos
     Git->>GH: git push origin feature/compromissos
-    GH->>GH: Ana abre Pull Request
-    GH->>GH: Bruno faz Code Review
+    GH->>GH: Rian abre Pull Request
+    GH->>GH: Gustavo e Rafael fazem Code Review
     GH->>GH: Merge PR &rarr; branch main
     
     Note over GH,Docker: FASE 3 - CI (GitHub Actions)
@@ -374,8 +361,8 @@ gitGraph
 
 <h3><span class="step-number">1</span>Inicializa&ccedil;&atilde;o do Reposit&oacute;rio</h3>
 <div class="dev1">
-<span class="dev1-tag">DEV 1 - Ana</span>
-<div class="code-block"><span class="comment"># Ana cria o projeto com Spring Initializr (ou IntelliJ)</span>
+<span class="dev1-tag">DEV 1 - Rian</span>
+<div class="code-block"><span class="comment"># Rian cria o projeto com Spring Initializr (ou IntelliJ)</span>
 mkdir agenda-web && cd agenda-web
 git init
 
@@ -389,8 +376,8 @@ git add .
 git commit -m "chore: estrutura inicial do projeto Agenda Web (Java + React)"</div>
 </div>
 
-<h3><span class="step-number">2</span>Bruno Clona o Reposit&oacute;rio</h3>
-<div class="code-block"><span class="comment"># Bruno clona o reposit&oacute;rio do GitHub</span>
+<h3><span class="step-number">2</span>Gustavo Clona o Reposit&oacute;rio</h3>
+<div class="code-block"><span class="comment"># Gustavo clona o reposit&oacute;rio do GitHub</span>
 git clone https://github.com/equipe/agenda-web.git
 cd agenda-web
 
@@ -400,9 +387,9 @@ git log --oneline
 
 <h3><span class="step-number">3</span>Cria&ccedil;&atilde;o de Branches</h3>
 <div class="dev1">
-<span class="dev1-tag">DEV 1 - Ana</span>
-<div class="code-block"><span class="comment"># Ana cria branch para Contatos</span>
-git checkout -b feature/contatos
+<span class="dev1-tag">DEV 1 - Rian</span>
+<div class="code-block"><span class="comment"># Rian cria branch para Atendimentos</span>
+git checkout -b feature/atendimentos
 
 <span class="comment"># Desenvolve: Contato.java, ContatoRepository.java, ContatoController.java</span>
 <span class="comment"># Desenvolve React: ContatoList.js, ContatoForm.js</span>
@@ -413,9 +400,9 @@ git commit -m "feat: implementa CRUD de contatos (Spring Boot + React)"</div>
 </div>
 
 <div class="dev2">
-<span class="dev2-tag">DEV 2 - Bruno</span>
-<div class="code-block"><span class="comment"># Bruno cria branch para Compromissos</span>
-git checkout -b feature/compromissos
+<span class="dev2-tag">DEV 2 - Gustavo</span>
+<div class="code-block"><span class="comment"># Gustavo cria branch para Exames</span>
+git checkout -b feature/exames
 
 <span class="comment"># Desenvolve: Compromisso.java, CompromissoRepository.java, CompromissoController.java</span>
 <span class="comment"># Desenvolve React: CompromissoList.js, CompromissoForm.js</span>
@@ -436,22 +423,25 @@ git commit -m "feat: implementa CRUD de compromissos (Spring Boot + React)"</div
 <div class="diagram-container">
 <pre class="mermaid">
 sequenceDiagram
-    participant Ana as &#128309; Ana (Dev 1)
-    participant Bruno as &#128994; Bruno (Dev 2)
+    participant Rian as &#128309; Rian (Dev 1)
+    participant Gustavo as &#128994; Gustavo (Dev 2)
+    participant Rafael as &#128997; Rafael (Dev 3)
     participant GH as &#128025; GitHub
     participant CI as &#9881;&#65039; GitHub Actions
 
-    Ana->>GH: git push origin feature/contatos
-    Ana->>GH: Abre Pull Request #1
-    Bruno->>GH: Revisa c&oacute;digo (Code Review)
+    Rian->>GH: git push origin feature/atendimentos
+    Rian->>GH: Abre Pull Request #1
+    Gustavo->>GH: Revisa c&oacute;digo (Code Review)
+    Rafael->>GH: Revisa c&oacute;digo (Code Review)
     GH->>CI: Trigger: PR opened
     CI->>CI: mvn test + npm test
     CI-->>GH: &#10004; Checks passed
     GH->>GH: Merge PR #1 &rarr; main
     
-    Bruno->>GH: git push origin feature/compromissos
-    Bruno->>GH: Abre Pull Request #2
-    Ana->>GH: Revisa c&oacute;digo (Code Review)
+    Gustavo->>GH: git push origin feature/exames
+    Gustavo->>GH: Abre Pull Request #2
+    Rian->>GH: Revisa c&oacute;digo (Code Review)
+    Rafael->>GH: Revisa c&oacute;digo (Code Review)
     GH->>CI: Trigger: PR opened
     CI->>CI: mvn test + npm test
     CI-->>GH: &#10004; Checks passed
@@ -461,12 +451,12 @@ sequenceDiagram
 
 <h3><span class="step-number">1</span>Push para o GitHub</h3>
 <div class="dev1">
-<span class="dev1-tag">DEV 1 - Ana</span>
+<span class="dev1-tag">DEV 1 - Rian</span>
 <div class="code-block">git remote add origin https://github.com/equipe/agenda-web.git
 git push origin feature/contatos</div>
 </div>
 <div class="dev2">
-<span class="dev2-tag">DEV 2 - Bruno</span>
+<span class="dev2-tag">DEV 2 - Gustavo</span>
 <div class="code-block">git push origin feature/compromissos</div>
 </div>
 
@@ -520,7 +510,7 @@ git log --oneline
 &#9474;           &#9492;&#9472;&#9472; CompromissoForm.js
 &#9492;&#9472;&#9472; docker-compose.yml</div>
 
-<h3><span class="dev1-tag">DEV 1 - Ana</span> Contato.java (Entity / Model)</h3>
+<h3><span class="dev1-tag">DEV 1 - Rian</span> Atendimento.java (Entity / Model)</h3>
 <div class="code-block"><span class="annotation">@Entity</span>
 <span class="annotation">@Table</span>(name = <span class="string">"contatos"</span>)
 <span class="annotation">@Data</span>
@@ -547,7 +537,7 @@ git log --oneline
     <span class="keyword">private</span> LocalDateTime criadoEm = LocalDateTime.now();
 }</div>
 
-<h3><span class="dev1-tag">DEV 1 - Ana</span> ContatoController.java (REST API)</h3>
+<h3><span class="dev1-tag">DEV 1 - Rian</span> AtendimentoController.java (REST API)</h3>
 <div class="code-block"><span class="annotation">@RestController</span>
 <span class="annotation">@RequestMapping</span>(<span class="string">"/api/contatos"</span>)
 <span class="annotation">@CrossOrigin</span>(origins = <span class="string">"*"</span>)
@@ -603,7 +593,7 @@ git log --oneline
     }
 }</div>
 
-<h3><span class="dev2-tag">DEV 2 - Bruno</span> Compromisso.java (Entity / Model)</h3>
+<h3><span class="dev2-tag">DEV 2 - Gustavo</span> ExameLaboratorio.java (Entity / Model)</h3>
 <div class="code-block"><span class="annotation">@Entity</span>
 <span class="annotation">@Table</span>(name = <span class="string">"compromissos"</span>)
 <span class="annotation">@Data</span>
@@ -656,7 +646,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect<
 
 <span class="keyword">const</span> api = axios.create({ baseURL: API_URL });
 
-<span class="comment">// ========== CONTATOS (DEV 1 - Ana) ==========</span>
+<span class="comment">// ========== ATENDIMENTOS (DEV 1 - Rian) ==========</span>
 <span class="keyword">export const</span> contatoService = {
   listar:    ()          => api.get(<span class="string">'/contatos'</span>),
   buscar:    (id)        => api.get(<span class="string">`/contatos/${id}`</span>),
@@ -665,7 +655,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect<
   deletar:   (id)        => api.delete(<span class="string">`/contatos/${id}`</span>)
 };
 
-<span class="comment">// ========== COMPROMISSOS (DEV 2 - Bruno) ==========</span>
+<span class="comment">// ========== EXAMES (DEV 2 - Gustavo) ==========</span>
 <span class="keyword">export const</span> compromissoService = {
   listar:    ()          => api.get(<span class="string">'/compromissos'</span>),
   buscar:    (id)        => api.get(<span class="string">`/compromissos/${id}`</span>),
@@ -674,7 +664,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect<
   deletar:   (id)        => api.delete(<span class="string">`/compromissos/${id}`</span>)
 };</div>
 
-<h3><span class="dev1-tag">DEV 1 - Ana</span> ContatoList.js (Componente React)</h3>
+<h3><span class="dev1-tag">DEV 1 - Rian</span> AtendimentoList.js (Componente React)</h3>
 <div class="code-block"><span class="keyword">import</span> React, { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
 <span class="keyword">import</span> { contatoService } <span class="keyword">from</span> <span class="string">'../services/api'</span>;
 
@@ -734,7 +724,7 @@ graph TB
 </pre>
 </div>
 
-<h3><span class="dev1-tag">DEV 1 - Ana</span> ContatoControllerTest.java (JUnit 5 + Mockito)</h3>
+<h3><span class="dev1-tag">DEV 1 - Rian</span> AtendimentoControllerTest.java (JUnit 5 + Mockito)</h3>
 <div class="code-block"><span class="annotation">@WebMvcTest</span>(ContatoController.<span class="keyword">class</span>)
 <span class="keyword">class</span> ContatoControllerTest {
 
@@ -1129,11 +1119,11 @@ EXPOSE 80</div>
 graph TB
     subgraph "&#128421;&#65039; DESENVOLVIMENTO LOCAL (VS Code/IntelliJ + Git + PostgreSQL)"
         direction TB
-        A1["&#128309; Ana no VS Code<br>git checkout -b feature/contatos"] --> A2["Implementa CRUD Contatos<br>(Java/Spring Boot + React)"]
+        A1["&#128309; Rian no VS Code<br>git checkout -b feature/atendimentos"] --> A2["Implementa CRUD Atendimentos<br>(Java/Spring Boot + React)"]
         A2 --> A3["&#129514; JUnit + Jest: Testes Unit&aacute;rios"]
         A3 --> A4["&#128194; Git: git add + git commit"]
         
-        B1["&#128994; Bruno no VS Code<br>git checkout -b feature/compromissos"] --> B2["Implementa CRUD Compromissos<br>(Java/Spring Boot + React)"]
+        B1["&#128994; Gustavo no VS Code<br>git checkout -b feature/exames"] --> B2["Implementa CRUD Exames<br>(Java/Spring Boot + React)"]
         B2 --> B3["&#129514; JUnit + Jest: Testes Unit&aacute;rios"]
         B3 --> B4["&#128194; Git: git add + git commit"]
     end

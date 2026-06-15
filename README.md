@@ -1,6 +1,6 @@
-# Agenda Web - Material Educacional
+﻿# ES2 Atendimento Online
 
-Sistema de Agenda Web para demonstração do ciclo completo de desenvolvimento de software.
+Projeto para gerenciamento de atendimentos médicos online (backend em Spring Boot e frontend em React). Contém APIs REST para gerenciar atendimentos, exames de laboratório e profissionais de saúde, além de uma interface frontend e configurações Docker.
 
 ## Tecnologias
 
@@ -19,7 +19,7 @@ Sistema de Agenda Web para demonstração do ciclo completo de desenvolvimento d
 ## Estrutura do Projeto
 
 ```
-agenda-web/
+ES2_ATENDIMENTO_ONLINE/
 ├── backend/           # API REST (Java/Spring Boot)
 │   ├── pom.xml
 │   ├── Dockerfile
@@ -57,9 +57,10 @@ npm test
 
 ## Divisão de Trabalho
 
-- **DEV 1 - Ana:** CRUD de Contatos (ContatoController + ContatoList/Form)
-- **DEV 2 - Bruno:** CRUD de Compromissos (CompromissoController + CompromissoList/Form)
+- **DEV 1 - Rian:** CRUD de Atendimentos (ContatoController + ContatoList/Form)
+- **DEV 2 - Gustavo:** CRUD de Exames (CompromissoController + CompromissoList/Form)
+- **DEV 3 - Rafael:** CRUD de Profissionais (CompromissoController + CompromissoList/Form)
 
 ## Apresentação
 
-Abra o arquivo `apresentacao_completa.html` no navegador para ver a apresentação completa da aula.
+Abra o arquivo `apresentacao_completa.html` no navegador para ver a apresentação completa do projeto.
